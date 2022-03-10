@@ -23,3 +23,17 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.on("uncaught:exception", (err, runnable) => {
+    // returning false here prevents Cypress from
+    // failing the test
+    return false;
+  });
+  
+  Cypress.Commands.add("manualLogin", (email, password) => {
+    //cy.visit("https://flow.iopulsedev.net/connect/login",{failOnStatusCode: false});
+    cy.get("input[type='email']").type(email);
+    cy.get("input[type='password']").type(password);
+    cy.contains("Login").click();
+  });
+  
